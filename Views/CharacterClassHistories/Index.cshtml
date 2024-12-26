@@ -1,0 +1,57 @@
+﻿@model CharacterClassHistoryListViewModel
+
+@{
+    ViewData["Title"] = "История изменений классов";
+}
+
+<h1>История изменений классов</h1>
+
+@if (Model.ClassId.HasValue)
+{
+        <p>
+            <a asp-controller="CharacterClasses" asp-action="Details" asp-route-id="@Model.ClassId">Вернуться к классу</a>
+        </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID Класса</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Сила</th>
+            <th>Ловкость</th>
+            <th>Дата изменения</th>
+            <th>Тип операции</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Histories)
+        {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.CharacterClassId</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Strength</td>
+                    <td>@item.Agility</td>
+                    <td>@item.ChangedDate</td>
+                    <td>
+                    @if (item.OperationType == OperationType.Create)
+                    {
+                                <span>Создание</span>
+                    }
+                    else if (item.OperationType == OperationType.Edit)
+                    {
+                                <span>Изменение</span>
+                    }
+                    else if (item.OperationType == OperationType.Delete)
+                    {
+                                <span>Удаление</span>
+                    }
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>

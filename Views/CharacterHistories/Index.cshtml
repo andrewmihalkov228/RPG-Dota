@@ -1,0 +1,54 @@
+﻿@model CharacterHistoryListViewModel
+
+@{
+    ViewData["Title"] = "История изменений персонажей";
+}
+
+<h1>История изменений персонажей</h1>
+        <p>
+            <a asp-controller="Characters" asp-action="Details" asp-route-id="@Model.CharacterId">Вернуться к персонажу</a>
+        </p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID Персонажа</th>
+            <th>Имя</th>
+            <th>Здоровье</th>
+            <th>Уровень</th>
+            <th>ID Класса</th>
+            <th>Дата изменения</th>
+            <th>Тип операции</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Histories)
+        {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.CharacterId</td>
+                    <td>@item.Name</td>
+                    <td>@item.Health</td>
+                    <td>@item.Level</td>
+                    <td>@item.CharacterClassId</td>
+                    <td>@item.ChangedDate</td>
+                    <td>
+                    @if (item.OperationType == OperationType.Create)
+                    {
+                                <span>Создание</span>
+                    }
+                    else if (item.OperationType == OperationType.Edit)
+                    {
+                                <span>Изменение</span>
+                    }
+                    else if (item.OperationType == OperationType.Delete)
+                    {
+                                <span>Удаление</span>
+                    }
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
